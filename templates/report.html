@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <style>
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .graph, .statistics, .table {
+            margin-bottom: 20px;
+            display: inline-block;
+            width: 23%;
+            vertical-align: top;
+        }
+        .fail {
+            background-color: #ffcccc; /* Light red background for failed cells */
+        }
+        .none {
+            background-color: #f2f2f2; /* Light grey background for cells with no value */
+        }
+        .neutral {
+            background-color: #ccccff
+        }
+        .softfail{
+            background-color: #ffffcc
+        }
+        .temperror{
+            background-color: #ffcc99
+        }
+        .permerror{
+            background-color: #cc00ff
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Report {{domain}}</h1>
+        <button onclick="window.location.href='http://127.0.0.1:5000'">Back to Main Page</button>
+        <!-- Graphs Section -->
+        <div class="graphs">
+            <h2>Graphs</h2>
+            {% for graph in graphs %}
+                <div class="graph">
+                    <img src="{{ graph }}" alt="Graph" style="width: 100%;">
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Tables Section -->
+        <div class="tables">
+            {% if tables %}
+            <h2>Tables</h2>
+            {% endif %}
+            {% for table in tables %}
+            <div class="table" style="width: 100%; display: block;">
+                <h3>{{ table.title }}</h3>
+                <table border="1" style="width: 100%;">
+                <thead>
+                    <tr>
+                    {% for header in table.headers %}
+                        <th>{{ header }}</th>
+                    {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in table.rows %}
+                    <tr>
+                        {% for cell in row %}
+                        <td class="{% if 'fail' in cell|lower %}fail{% endif %}{% if 'none' in cell|lower %}none{% endif %}{% if 'neutral' in cell|lower %}neutral{% endif %}{% if 'softfail' in cell|lower %}softfail{% endif %}{% if 'temperror' in cell|lower %}temperror{% endif %}{% if 'permerror' in cell|lower %}permerror{% endif %}">{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Selector</title>
+</head>
+<body>
+    <h1>Select a Domain</h1>
+    <form action="/reports" method="get">
+        <label for="domain">Choose a domain:</label>
+        <select id="domain" name="domain">
+            {% for domain in domains %}
+            <option value="{{ domain }}">{{ domain }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date">
+        <br><br>
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <h2>Failed Domains in last week</h2>
+    <ul>
+        {% for domain in failed_domains %}
+        <li>{{ domain }}</li>
+        {% endfor %} 
+    </ul>
+</body>
+</html>

@@ -1,0 +1,6 @@
+/downloaded_mails
+/extracted_files
+/imported_reports.json
+.venv
+static/*
+.env
