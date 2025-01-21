@@ -3,9 +3,10 @@
 ## How to Use
 
 1. **Create Environment File**
-    - Create an `.env` file with your credentials, following the structure provided in `env_template`.
+    - Create an `.env` file with your credentials, following the structure provided in `config_template`.
 
 2. **Extract Attachments**
+    - If you're using Microsoft 365, please follow the instructions at the bottom (Chapter "Using Microsoft 365").
     - Run the script `extract_attachments.py` to extract email attachments.
 
     ```bash
@@ -28,6 +29,22 @@
 
 5. **Browse DMARC Analyzer**
     - Open your web browser and go to `http://localhost:5000` to view the DMARC analyzer.
+
+## Using Microsoft 365
+
+When you're using Microsoft 365, you first need to register the application in your tenant.
+- Go to https://entra.microsoft.com and log in using an administrator.
+- Go to Applications -> App registrations
+- Create a new registration
+- Enter a name and choose "Accounts in this organizational directory only"
+- Select Web as a platform and enter `http://localhost:5000/callback` as the callback URI
+- Go to Certificates & Secrets and create a new secret key for the application. Copy the key and enter it into the .env-file.
+
+- You're now able to start the application using the script `extract_attachments_M365.py`
+
+    ```bash
+    python extract_attachments_M365.py
+    ```
 
 ## Requirements
 
