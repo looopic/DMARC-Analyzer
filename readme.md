@@ -40,10 +40,10 @@ When you're using Microsoft 365, you first need to register the application in y
 - Select Web as a platform and enter `http://localhost:5000/callback` as the callback URI
 - Go to Certificates & Secrets and create a new secret key for the application. Copy the key and enter it into the .env-file.
 
-- You're now able to start the application using the script `extract_attachments_M365.py`
+- You're now able to start the application using the script `dmarc_analyzer_M365.py`
 
     ```bash
-    python extract_attachments_M365.py
+    python dmarc_analyzer_M365.py
     ```
 
 ## Requirements
