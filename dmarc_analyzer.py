@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect
 import os
 from datetime import datetime, timedelta
 import json
@@ -8,7 +8,7 @@ matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import xml.etree.ElementTree as ET
 import requests
-import subprocess
+import subprocess, sys
 
 app = Flask(__name__)
 
@@ -307,10 +307,12 @@ def fetch_rdap_info(ip):
         print(f"Error fetching RDAP data for IP {ip}: {e}")
         return 'Unknown'
 
-@app.route('/download_attachments', methods=['POST'])
+@app.route('/download_attachments', methods=['GET','POST'])
 def download_attachments():
-    subprocess.run(['python3', 'extract_attachments.py'])
-    subprocess.run(['python3', 'unzip_attachments.py'])
+    python = sys.executable
+    subprocess.run([python, 'extract_attachments.py'])
+    subprocess.run([python, 'unzip_attachments.py'])
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)
